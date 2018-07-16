@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/brobb923/packingList/packing"
+	"github.com/brobb923/packingList/storage"
 	"github.com/manifoldco/promptui"
 )
 
@@ -22,11 +23,15 @@ func main() {
 	}
 	fmt.Println(name)
 
-	err = promptCategories(packing.Categories)
-	if err != nil {
+	storage.Load(filename string)
 
-		fmt.Println(err)
+	if len(packing.ListItems()) == 0 {
+		err = promptCategories(packing.Categories)
+		if err != nil {
 
+			fmt.Println(err)
+
+		}
 	}
 
 	packingList := packing.FinalList()
@@ -46,6 +51,8 @@ func main() {
 
 			itemNames = append(itemNames, listEntry)
 		}
+
+		storage.Save(filename string)
 
 		prompt := promptui.Select{
 			Label: "Packing List",

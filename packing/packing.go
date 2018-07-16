@@ -95,3 +95,11 @@ func FinalList() []*Item {
 	return packingList
 
 }
+
+func ListItems() []*Item {
+	return packingList
+}
+
+func SetLists(a []*Item) {
+	packingList = a
+}
